@@ -3,6 +3,7 @@
 
 #include "commons.h"
 #include "constants.h"
+#include "snake.h"
 
 class Game {
 private:
@@ -12,6 +13,8 @@ private:
     void render(void);
     void update(void);
     void handle_input(void);
+
+    Snake* snake;
 
 public:
 

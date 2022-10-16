@@ -19,6 +19,8 @@ Game::Game(void) {
         std::cout << "Failed to create renderer context: " << SDL_GetError() << std::endl;
         exit(1);
     }
+
+    snake = new Snake(100, 100, 50, 15);
 }
 
 void Game::run(void) {
@@ -34,14 +36,7 @@ void Game::render(void) {
     SDL_SetRenderDrawColor(m_renderer, 95, 128, 255, 255);
     SDL_RenderClear(m_renderer);
 
-    //SDL_SetRenderDrawColor(m_renderer, 128, 255, 255, 255);
-    //SDL_Rect r;
-    //r.x = 100;
-    //r.y = 100;
-    //r.w = 50;
-    //r.h = 50;
-
-    //SDL_RenderDrawRect(m_renderer, &r);
+    snake->render(m_renderer);
 
     SDL_RenderPresent(m_renderer);
 }
@@ -63,7 +58,8 @@ void Game::handle_input(void) {
     }
 }
 
-Game::~Game() {
+Game::~Game(void) {
+    delete snake;
     SDL_DestroyRenderer(m_renderer);
     SDL_DestroyWindow(m_window);
     SDL_Quit();
