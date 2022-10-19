@@ -1,5 +1,6 @@
 #include "snake.h"
 #include "game.h"
+#include <SDL2/SDL_keycode.h>
 
 Snake::Snake(int snake_headx, int snake_heady, int length, int width)
 : m_length(length), m_width(width) {
@@ -51,18 +52,20 @@ void Snake::update() {
         head.x += velocity;
     }
 
-    //Make the rest of the snake body follow the head
-    int prev_x = head.x;
-    int prev_y = head.y;
-    for (SDL_Rect rect : snake_queue) {
-        int tempx = rect.x;
-        int tempy = rect.y;
+    if (KEY_LEFT || KEY_RIGHT || KEY_DOWN || KEY_UP) {
+        //Make the rest of the snake body follow the head
+        int prev_x = head.x;
+        int prev_y = head.y; 
+        for (SDL_Rect& rect : snake_queue) {
+            int tempx = rect.x;
+            int tempy = rect.y;
 
-        rect.x = prev_x;
-        rect.y = prev_y;
+            rect.x = prev_x;
+            rect.y = prev_y;
 
-        prev_x = tempx;
-        prev_y = tempy;
+            prev_x = tempx;
+            prev_y = tempy;
+        }
     }
 }
 
@@ -90,6 +93,12 @@ void Snake::handle_input(SDL_Event event) {
     }
     if (event.key.keysym.sym == SDLK_RIGHT) {
         KEY_RIGHT = true;
+        KEY_DOWN = false;
+        KEY_LEFT = false;
+        KEY_UP = false;
+    }
+    if (event.key.keysym.sym == SDLK_s) {
+        KEY_RIGHT = false;
         KEY_DOWN = false;
         KEY_LEFT = false;
         KEY_UP = false;
