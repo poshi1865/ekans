@@ -21,7 +21,7 @@ private:
     bool KEY_RIGHT;
 
 public:
-    Snake(int headx, int heady, int length, int width);
+    Snake(int headx, int heady, int length);
     void render(SDL_Renderer* renderer);
     void update();
     void handle_input(SDL_Event event);

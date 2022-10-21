@@ -19,7 +19,7 @@ Game::Game(void) {
         exit(1);
     }
 
-    snake = new Snake(100, 100, 10, 13);
+    snake = new Snake(600, 200, 20);
 }
 
 void Game::run(void) {
@@ -27,7 +27,7 @@ void Game::run(void) {
         update();
         handle_input();
         render();
-        SDL_Delay(10);
+        SDL_Delay(16);
     }
 }
 
